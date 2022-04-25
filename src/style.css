@@ -12,6 +12,15 @@ main {
     padding: 36px;
 }
 
+button {
+    text-align: center;
+    border: none;
+    padding: 0.5em 0em;
+    display: inline-block;
+    font-size: 1.1rem;
+    border-radius: 10px;
+}
+
 .header {
     display: flex;
     align-items: center;
@@ -55,20 +64,16 @@ main {
     padding: 0 2em;
 }
 
-.licenses > button {
+.licenses--button {
     width: 100%;
-    text-align: center;
     align-self: center;
     background-color: #ef8316;
-    border: none;
     margin: 1em 0 0 0;
-    padding: 0.5em 0em;
-    display: inline-block;
-    font-size: 1.1rem;
-    border-radius: 10px;
+
 }
 
-.licenses > button:hover {
+
+.licenses--button:hover {
     background-color: #f19130;
 }
 
@@ -112,18 +117,11 @@ main {
 
 .mcq--buttons > button {
     width: 40%;
-    text-align: center;
     background-color: #326fb2;
     margin: 0;
     color: white;
-    padding: 0.5em 0em;
-    display: inline-block;
-    font-size: 1.1rem;
-    border-radius: 10px;
-    border: none;
 }
 
 .mcq--buttons > button:hover {
     background-color: #4690e1;
-    color:
 }
