@@ -6,12 +6,10 @@ import License from "./components/License";
 
 import data from "./data/data"
 
-
-
 export default function App() {
 
     // Popup when you try to refresh the page
-    useEffect(() => {
+    /*useEffect(() => {
         const unloadCallback = (event) => {
             event.preventDefault();
             event.returnValue = "";
@@ -19,18 +17,47 @@ export default function App() {
         };
         window.addEventListener("beforeunload", unloadCallback);
         return () => window.removeEventListener("beforeunload", unloadCallback);
-    }, []);
+    }, []);*/ // TODO: untoggle
+
+    /* ---------------------- S T A T E S ---------------------- */
+
+    // State of selected license
+    const [checkedLicense, setCheckedLicense] = React.useState({
+        src: false,
+        lrc: false,
+        ubi: false,
+        disabled: false,
+    })
+
+
+    /* ---------------------- V A R I A B L E S ---------------------- */
 
     // Define licenses for which there are questions
     const licenses = ["src", "lrc", "ubi"]
 
-    // State of selected license
-    const [checkedLicense, setCheckedLicense] = React.useState({
-        src: "",
-        lrc: "",
-        ubi: "",
-        disabled: false,
+
+    /* ---------------------- F U N C T I O N S ---------------------- */
+
+    // State of all relevant questions
+    const [allQuestions, setAllQuestions] = React.useState({
+        questions: "",
     })
+
+    // Get list of questions for the licenses that have been selected
+    function getQuestions() {
+        let relevantQuestions = []
+        licenses.forEach((licenseName) => {
+            if (checkedLicense[licenseName]) {
+                let questions = data.questions.filter((q) => {
+                    return q.license == licenseName.toUpperCase()
+                })
+                relevantQuestions = relevantQuestions.concat(questions)
+            }
+        })
+        return relevantQuestions
+    }
+
+    /* ---------------------- H A N D L E S ---------------------- */
 
     // Handle selection of a license
     function handleChangeLicense(event) {
@@ -52,13 +79,23 @@ export default function App() {
                 disabled: true
             }
         })
+
+        const questionsList = getQuestions()
+        setAllQuestions(prevData => {
+            return {
+                ...prevData,
+                questions: questionsList,
+            }
+        })
     }
+
 
     // Handle reset of license selection
     function handleReset(event) {
         if (window.confirm("Fragenauswahl resetten?")) {
             setCheckedLicense(prevData => {
                 return {
+                    ...prevData,
                     src: "",
                     lrc: "",
                     ubi: "",
@@ -72,41 +109,21 @@ export default function App() {
         <div>
             <Header />
             <main>
-                <div className="licenses">
-                    <h4>Bitte wähle aus, für welchen Funkschein du lernen möchtest:</h4>
-                    <div className="licenses--selection">
-                        {licenses.map((licenseName) => (
-                            <License
-                                status={checkedLicense}
-                                license={licenseName}
-                                handleChange={handleChangeLicense}
-                            />
-                        ))}
-                    </div>
-                    {checkedLicense.disabled === false && (
-                        <button
-                            className="licenses--button"
-                            onClick={handleSelectLicense}
-                            disabled={checkedLicense.disabled}
-                        >
-                            Auswählen
-                        </button>
-                    )}
-                    {checkedLicense.disabled && (
-                        <button
-                            className="licenses--button"
-                            onClick={handleReset}
-                        >
-                            Reset
-                        </button>
-                    )}
-                </div>
+                <License
+                    status={checkedLicense}
+                    licenses={licenses}
+                    handleChangeLicense={handleChangeLicense}
+                    handleSelectLicense={handleSelectLicense}
+                    handleReset={handleReset}
+                />
                 <br />
-
                 <QuestionSection
                     key={data.id}
                     item={data.questions}
+                    questions={allQuestions}
+                    dontDisplay={checkedLicense.disabled}
                 />
+                <br />
             </main>
         </div>
     )

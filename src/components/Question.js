@@ -7,7 +7,7 @@ export default function Question(props) {
     * and no previous states etc.
     * */
 
-    const [currentQuestion, setCurrentQuestion] = React.useState({
+    const [currentQuestionOld, setCurrentQuestionOld] = React.useState({
             // Information about current Question
             questionId: props.item.id,
             selectedAnswer: "",
@@ -39,7 +39,7 @@ export default function Question(props) {
 
     function handleSelection(event) {
         const {value} = event.target
-        setCurrentQuestion(prevData => {
+        setCurrentQuestionOld(prevData => {
             return {
                 ...prevData,
                 selectedAnswer: value,
@@ -49,40 +49,35 @@ export default function Question(props) {
         })
     }
 
-    console.log(currentQuestion)
+    //console.log(currentQuestion)
+    console.log("Total questions in Question: "+props.totalQuestions)
 
     function changeColor(answer) {
         let color = "rgba(197,194,194,0.85)"
         let weight = "normal"
         let fontColor = "black"
-        if (currentQuestion.selectedAnswer !== "") {
-            //fontColor = "#6c6a6a"
-            if (currentQuestion.selectedAnswer === answer.label) {
-                weight = "bold"
-                if (answer.value === true) {
-                    color = "#c9ec94"
-                } else {
-                    color = "#ec9494"
-                }
-            } else {
-                if (answer.value === true) {
-                    color = "#c9ec94"
+
+        const red = "linear-gradient(60deg, #ef3e53 1%, rgb(246, 78, 78) 100%)"
+        const green = "linear-gradient(60deg, #74c215 1%, rgb(183, 225, 98) 100%)"
+        if (currentQuestionOld.selectedAnswer !== "") {
+            if (currentQuestionOld.selectedAnswer === answer.label) {
+                color = answer.value === true ? green : red
+            } else if (answer.value === true) {
+                color = "#83ce11"
             }
-        }}
+        }
         return {
-            backgroundColor: color,
+            background: color,
             fontWeight: weight,
             color: fontColor
         }
     }
 
-    console.log(currentQuestion)
-
     return (
         <div className="mcq">
             <div className="mcq--question">
                 <h2>{props.item.question}</h2>
-                <span>Frage {currentQuestion.countQuestion} von {currentQuestion.totalQuestions}</span>
+                <span>Frage {props.questionNumber} von {props.totalQuestions}</span>
             </div>
             <div className="mcq--answers">
                 {props.item.answers.map((answer, index) => (
@@ -93,8 +88,8 @@ export default function Question(props) {
                             id={index}
                             key={answer.label}
                             value={answer.label}
-                            checked={currentQuestion.selectedAnswer === answer.label}
-                            disabled={currentQuestion.disabled}
+                            checked={currentQuestionOld.selectedAnswer === answer.label}
+                            disabled={currentQuestionOld.disabled}
                             onChange={handleSelection}
                         />
                         {answer.label}

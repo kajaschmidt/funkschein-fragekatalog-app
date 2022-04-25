@@ -1,21 +1,38 @@
 import React from "react";
+import LicenseCheckbox from "./LicenseCheckbox";
 
 export default function License(props) {
 
-    const Checkbox = props => (
-        <input type="checkbox" {...props} />
-    )
-
     return (
-        <label>
-            <Checkbox
-                id={props.license}
-                name={props.license}
-                disabled={props.status.disabled}
-                checked={props.status[props.license] === true}
-                onChange={props.handleChange}
-            />
-            <span>{props.license.toUpperCase()}</span>
-        </label>
+        <div className="licenses">
+            <h4>Bitte wähle aus, für welchen Funkschein du lernen möchtest:</h4>
+            <div className="licenses--selection">
+                {props.licenses.map((licenseName) => (
+                    <LicenseCheckbox
+                        key={licenseName}
+                        status={props.status}
+                        license={licenseName}
+                        handleChange={props.handleChangeLicense}
+                    />
+                ))}
+            </div>
+            {props.status.disabled === false && (
+                <button
+                    className="licenses--button"
+                    onClick={props.handleSelectLicense}
+                    disabled={props.status.disabled}
+                >
+                    Auswählen
+                </button>
+            )}
+            {props.status.disabled && (
+                <button
+                    className="licenses--button"
+                    onClick={props.handleReset}
+                >
+                    Reset
+                </button>
+            )}
+        </div>
     )
 }
