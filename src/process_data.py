@@ -15,12 +15,7 @@ def init_question_entry(row) -> dict:
     entry = {"license": row["license"],
              "chapter": row["chapter"],
              "question": None,
-             "answers": {
-                 "A": None,
-                 "B": None,
-                 "C": None,
-                 "D": None
-             }}
+             "answers": []}
     return entry
 
 
@@ -80,9 +75,12 @@ def get_data() -> None:
             if len(subset & set(text.split())) == len(subset):
                 text = convert_to_html_list(text)
 
-            # Add answer text to entry
-            option = row["option"]
-            data[q_id]["answers"][option] = text
+            # Add answer text answer options and specify label
+            # Note: "A" is always the correct answer
+            data[q_id]["answers"].append({
+                "label": text,
+                "value": True if row["option"] == "A" else False
+            })
 
     # Convert dict of questions into list of questions
     questions = list()

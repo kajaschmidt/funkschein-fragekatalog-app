@@ -5,6 +5,7 @@
 body {
     font-family: "Karla", sans-serif;
     margin: 0;
+    font-size: 12pt;
 }
 
 main {
@@ -21,11 +22,108 @@ main {
 }
 
 .header--title {
-    font-size: 1.25rem;
+    font-size: 1.5rem;
     margin-right: auto;
 }
 
 .header--project {
-    font-size: 0.75rem;
+    font-size: 1rem;
     font-weight: 500;
+}
+
+.licenses {
+    background: linear-gradient(90deg, #f8be52 1%, #f8d452 100%);
+    border-radius: 5px;
+    padding: 1em 2em;
+    margin: 0;
+    align-items: center;
+}
+
+.licenses > h4 {
+    padding: 0;
+    margin: 0.5em 0em;
+}
+
+.licenses--selection {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.licenses--selection > label {
+    text-align: center;
+    padding: 0 2em;
+}
+
+.licenses > button {
+    width: 100%;
+    text-align: center;
+    align-self: center;
+    background-color: #ef8316;
+    border: none;
+    margin: 1em 0 0 0;
+    padding: 0.5em 0em;
+    display: inline-block;
+    font-size: 1.1rem;
+    border-radius: 10px;
+}
+
+.licenses > button:hover {
+    background-color: #f19130;
+}
+
+.mcq {
+    align-items: center;
+    padding: 1em;
+    border-radius: 5px;
+    background: linear-gradient(90deg, #e8e8e8 1%, rgb(243, 241, 241) 100%);
+}
+
+.mcq--question {
+    position: relative;
+    margin: 1em 1em 2.5em 1em;
+
+}
+
+.mcq--question > h2 {
+    font-weight: bold;
+    font-size: 1.5rem;
+    margin: 0.3em 0em;
+    line-height: 1.3em;
+}
+
+.mcq--question > span {
+    float: right;
+    font-size: 1rem;
+}
+
+.radio {
+    margin: 1em;
+    padding: 1em 0em;
+    border-radius: 10px;
+}
+
+.mcq--buttons {
+    display: flex;
+    align-items: center;
+    margin: 1em 0;
+    justify-content: space-between;
+}
+
+.mcq--buttons > button {
+    width: 40%;
+    text-align: center;
+    background-color: #326fb2;
+    margin: 0;
+    color: white;
+    padding: 0.5em 0em;
+    display: inline-block;
+    font-size: 1.1rem;
+    border-radius: 10px;
+    border: none;
+}
+
+.mcq--buttons > button:hover {
+    background-color: #4690e1;
+    color:
 }
