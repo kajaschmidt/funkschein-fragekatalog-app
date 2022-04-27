@@ -3,6 +3,8 @@ import LicenseCheckbox from "./LicenseCheckbox";
 
 export default function License(props) {
 
+    console.log("Run License")
+
     return (
         <div className="licenses">
             <h4>Bitte wähle aus, für welchen Funkschein du lernen möchtest:</h4>

@@ -121,7 +121,7 @@ input {
 
 .mcq--buttons {
     display: flex;
-    align-items: center;
+    align-items: flex-end;
     margin: 1em 0;
     justify-content: space-between;
 }
@@ -133,9 +133,12 @@ input {
     color: white;
 }
 
-
-
+.button-right {
+    margin-left: auto;
+}
 
 .mcq--buttons > button:hover {
     background-color: #4690e1;
 }
+
+
