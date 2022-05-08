@@ -2,8 +2,6 @@ import React from "react";
 
 export default function LicenseCheckbox(props) {
 
-    console.log("Run LicenseCheckbox")
-
     const Checkbox = props => (
         <input type="checkbox" {...props} />
     )

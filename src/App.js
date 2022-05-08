@@ -2,7 +2,8 @@ import React, {Component, useEffect} from 'react';
 
 import Header from "./components/Header"
 import License from "./components/License";
-import Main from "./components/Main";
+import QuestionBox from "./components/QuestionBox";
+import Statistics from "./components/Statistics"
 
 import data from "./data/data"
 
@@ -19,8 +20,6 @@ export default function App() {
         return () => window.removeEventListener("beforeunload", unloadCallback);
     }, []);*/ // TODO: untoggle
 
-    console.log("Run App")
-
     /* ---------------------- S T A T E S ---------------------- */
 
     // State of selected license
@@ -32,7 +31,8 @@ export default function App() {
     })
 
     const [stats, setStats] = React.useState({
-        questionNumber: "",
+        index: "", // The index value in which allData.questions is iterated in
+        progress: 0, // Percentage of questions achieved
         successfulQuestions: [],
         failedQuestions: [],
         handleEvaluation: false
@@ -68,16 +68,19 @@ export default function App() {
         relevantQuestions = relevantQuestions.sort(() => Math.random() - 0.5)
 
         // Shuffle answers
+        console.log("Define relevant questions")
         relevantQuestions.forEach((q) => {
             q.answers = q.answers.sort(() => Math.random() - 0.5)
             q.nCorrect = 0
             q.nFalse = 0
+            q.selectedAnswer = ""
+            q.correctAnswer = getCorrectAnswer(q)
         })
 
         return relevantQuestions
     }
 
-    function evaluateSelectedAnswer(answeredCorrectly, currentQuestionId) {
+    function evaluateSelectedAnswer(answer, answeredCorrectly, currentQuestionId) {
         if (answeredCorrectly === true) {
             console.log("> Correct answer")
             setStats(prevStats => {
@@ -93,6 +96,7 @@ export default function App() {
                 updatedQuestions.forEach((q) => {
                     if (q.id === currentQuestionId) {
                         q.nCorrect = q.nCorrect + 1
+                        q.selectedAnswer = answer
                     }
                 })
 
@@ -117,6 +121,7 @@ export default function App() {
                 updatedQuestions.forEach((q) => {
                     if (q.id === currentQuestionId) {
                         q.nFalse = q.nFalse + 1
+                        q.selectedAnswer = answer
                     }
                 })
 
@@ -126,6 +131,7 @@ export default function App() {
                 }
             })
         }
+        console.log("Finished evaluateSelectedAnswer()")
     }
 
     function setHandleEvaluation(state) {
@@ -139,24 +145,35 @@ export default function App() {
 
     // TODO: Test: Successful + Fail = props.stats.successfulQuestions.length
 
-    function changeQuestionNumber(add) {
+    function changeIndex(add) {
+        const nQuestions = allData.questions.length
         if (add === true) {
             setStats(prevStats => {
                 return {
                     ...prevStats,
-                    questionNumber: prevStats.questionNumber + 1
+                    index: prevStats.index + 1,
+                    progress: ((prevStats.index+1) / nQuestions)*100
                 }
             })
         } else {
             setStats(prevStats => {
                 return {
                     ...prevStats,
-                    questionNumber: prevStats.questionNumber - 1
+                    index: prevStats.index - 1,
+                    progress: ((prevStats.index-1) / nQuestions)*100
                 }
             })
         }
     }
 
+    // Identify the correct answer of a question
+    function getCorrectAnswer(question) {
+        for (let i = 0; i < 4; i++) {
+            if (question.answers[i].value === true) {
+                return question.answers[i].label
+            }
+        }
+    }
 
     /* ---------------------- H A N D L E S ---------------------- */
 
@@ -173,7 +190,7 @@ export default function App() {
         setStats(prevStats => {
             return {
                 ...prevStats,
-                questionNumber: 0
+                index: 0
             }
         })
     }
@@ -213,21 +230,17 @@ export default function App() {
                 }
             })
         }
-        // Set questionNumber to 0 (triggers useEffect() in Main.js)
+        // Set index to 0 (triggers useEffect() in QuestionBox.js)
         setStats(prevStats => {
             return {
                 ...prevStats,
-                questionNumber: "",
+                index: "",
                 successfulQuestions: [],
                 failedQuestions: [],
                 handleEvaluation: false
             }
         })
     }
-
-    console.log(allData)
-    console.log("Stats")
-    console.log(stats)
 
     return (
         <div>
@@ -243,14 +256,17 @@ export default function App() {
                 <br />
                 {checkedLicense.disabled && (
                     <div>
-                        <Main
+                        <QuestionBox
                             key="1"
                             data={allData}
                             stats={stats}
                             evaluateSelectedAnswer={evaluateSelectedAnswer}
                             setHandleEvaluation={setHandleEvaluation}
-                            changeQuestionNumber={changeQuestionNumber}
+                            changeIndex={changeIndex}
                         />
+                        <br/>
+                        <Statistics
+                        stats={stats}/>
                     </div>)}
                 <br />
             </main>

@@ -24,6 +24,24 @@ button {
 
 input {
     margin: 0 1em;
+    float: left;
+    align-self: center
+}
+
+.radio--text {
+    margin-right: 1em;
+    display: block;
+}
+
+label {
+    display: flex;
+}
+
+.radio {
+    margin: 1em;
+    padding: 1em 0em;
+    border-radius: 10px;
+    background: linear-gradient(60deg, #74c215 1%, rgb(183, 225, 98) 100%);
 }
 
 .header {
@@ -82,12 +100,11 @@ input {
 
 }
 
-
 .licenses--button:hover {
     background-color: #f19130;
 }
 
-.mcq {
+.questionbox {
     align-items: center;
     padding: 1em;
     border-radius: 5px;
@@ -107,22 +124,10 @@ input {
     line-height: 1.3em;
 }
 
-.mcq--question > span {
-    float: right;
-    font-size: 1rem;
-}
-
-.radio {
-    margin: 1em;
-    padding: 1em 0em;
-    border-radius: 10px;
-    background: linear-gradient(60deg, #74c215 1%, rgb(183, 225, 98) 100%);
-}
-
 .mcq--buttons {
     display: flex;
     align-items: flex-end;
-    margin: 1em 0;
+    margin: 2.5em 1em 0.8em;
     justify-content: space-between;
 }
 
@@ -140,5 +145,37 @@ input {
 .mcq--buttons > button:hover {
     background-color: #4690e1;
 }
+
+.mcq--buttons > button:disabled {
+    background-color: #326fb2;
+}
+
+
+.progressbar {
+    height: 1em;
+    width: 100%;
+    background-color: #ffffff;
+    border-radius: 5px;
+    display: flex;
+    align-content: center;
+    align-items: center;
+}
+
+.progressbar--progress {
+    height: 100%;
+    background: linear-gradient(90deg, #224f80 1.18%, #76a5d7 100%);
+    border-radius: 5px 0px 0 5px;
+    textAlign: 'right';
+    margin-right: auto;
+}
+
+.progressbar > span {
+    float: right;
+    font-size: 1rem;
+    margin-right: 0.5em;
+    align-self: center;
+    color: rgba(197,194,194,0.85);
+}
+
 
 
