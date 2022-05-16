@@ -1,5 +1,4 @@
 import React from "react"
-import ProgressBar from "./ProgressBar";
 
 export default function Question(props) {
 
@@ -30,11 +29,6 @@ export default function Question(props) {
         <div className="mcq">
             <div className="mcq--question">
                 <h2>{props.currentQuestion.question}</h2>
-                <ProgressBar
-                    totalQuestions={props.totalQuestions}
-                    index={props.index}
-                    progress={props.progress}
-                />
             </div>
             <div className="mcq--answers">
                 {props.currentQuestion.answers.map((answer, index) => (

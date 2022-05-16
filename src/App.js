@@ -49,7 +49,7 @@ export default function App() {
     // State of all relevant questions
     const [allData, setAllData] = React.useState({
         questions: "",
-        answeredQuestions: []
+        //answeredQuestions: []
     })
 
 
@@ -65,10 +65,12 @@ export default function App() {
                 relevantQuestions = relevantQuestions.concat(questions)
             }
         })
-        relevantQuestions = relevantQuestions.sort(() => Math.random() - 0.5)
+        return relevantQuestions
+    }
 
+    function randomizeQuestions(relevantQuestions) {
+        let randomizedQuestions = relevantQuestions.sort(() => Math.random() - 0.5)
         // Shuffle answers
-        console.log("Define relevant questions")
         relevantQuestions.forEach((q) => {
             q.answers = q.answers.sort(() => Math.random() - 0.5)
             q.nCorrect = 0
@@ -76,8 +78,7 @@ export default function App() {
             q.selectedAnswer = ""
             q.correctAnswer = getCorrectAnswer(q)
         })
-
-        return relevantQuestions
+        return randomizedQuestions
     }
 
     function evaluateSelectedAnswer(answer, answeredCorrectly, currentQuestionId) {
@@ -146,7 +147,7 @@ export default function App() {
     // TODO: Test: Successful + Fail = props.stats.successfulQuestions.length
 
     function changeIndex(add) {
-        const nQuestions = allData.questions.length
+        const nQuestions = allData.questions.length-1
         if (add === true) {
             setStats(prevStats => {
                 return {
@@ -207,7 +208,13 @@ export default function App() {
         })
 
         // Update list of relevant questions
-        const questionsList = getQuestions()
+        let questionsList = getQuestions()
+        questionsList = randomizeQuestions(questionsList)
+        setAllDataQuestions(questionsList)
+
+    }
+
+    function setAllDataQuestions(questionsList) {
         setAllData(prevData => {
             return {
                 ...prevData,
@@ -215,7 +222,6 @@ export default function App() {
             }
         })
     }
-
 
     // Handle reset of license selection
     function handleReset(event) {
@@ -229,18 +235,50 @@ export default function App() {
                     disabled: false,
                 }
             })
+            // Set index to 0 (triggers useEffect() in QuestionBox.js)
+            setStats(prevStats => {
+                return {
+                    ...prevStats,
+                    index: "",
+                    successfulQuestions: [],
+                    failedQuestions: [],
+                    handleEvaluation: false
+                }
+            })
         }
+    }
+
+    function getFalseQuestions() {
+        let falseQuestions = []
+        allData.questions.forEach((q) => {
+            if (stats.failedQuestions.includes(q.id)) {
+                q.selectedAnswer = ""
+                q.answers = q.answers.sort(() => Math.random() - 0.5)
+                falseQuestions = falseQuestions.concat(q)
+            }
+        })
+        return falseQuestions
+    }
+
+    function handleFalseQuestions() {
+        // Get false questions and replace the allData.questions list
+        let falseQuestions = getFalseQuestions()
+        falseQuestions = randomizeQuestions(falseQuestions)
+        setAllDataQuestions(falseQuestions)
+
+        console.log("Run handleFalseQuestion")
+
         // Set index to 0 (triggers useEffect() in QuestionBox.js)
         setStats(prevStats => {
             return {
                 ...prevStats,
-                index: "",
-                successfulQuestions: [],
+                index: 0,
                 failedQuestions: [],
-                handleEvaluation: false
             }
         })
     }
+
+    console.log(allData.questions)
 
     return (
         <div>
@@ -252,6 +290,8 @@ export default function App() {
                     handleChangeLicense={handleChangeLicense}
                     handleSelectLicense={handleSelectLicense}
                     handleReset={handleReset}
+                    displayFalseQuestionsButton={parseInt(stats.index+1) === parseInt(allData.questions.length)}
+                    handleFalseQuestion={handleFalseQuestions}
                 />
                 <br />
                 {checkedLicense.disabled && (

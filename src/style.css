@@ -5,7 +5,7 @@
 body {
     font-family: "Karla", sans-serif;
     margin: 0;
-    font-size: 12pt;
+    font-size: 10pt;
 }
 
 main {
@@ -89,19 +89,31 @@ label {
 
 .licenses--selection > label {
     text-align: center;
-    padding: 0 2em;
+    padding: 0 1em;
 }
 
-.licenses--button {
+.licenses--button, .button-false-questions {
     width: 100%;
     align-self: center;
     background-color: #ef8316;
     margin: 1em 0 0 0;
+    margin-right: auto;
+}
 
+.licenses--button {
+    background-color: #ef8316;
 }
 
 .licenses--button:hover {
     background-color: #f19130;
+}
+
+.button-false-questions {
+    background-color: #aeccee;
+}
+
+.button-false-questions:hover {
+    background-color: #bcd5ef;
 }
 
 .questionbox {
@@ -111,15 +123,15 @@ label {
     background: linear-gradient(90deg, #e8e8e8 1%, rgb(243, 241, 241) 100%);
 }
 
+
 .mcq--question {
     position: relative;
-    margin: 1em 1em 2.5em 1em;
-
+    margin: 1em;
 }
 
 .mcq--question > h2 {
     font-weight: bold;
-    font-size: 1.5rem;
+    font-size: 1.2rem;
     margin: 0.3em 0em;
     line-height: 1.3em;
 }
@@ -127,7 +139,7 @@ label {
 .mcq--buttons {
     display: flex;
     align-items: flex-end;
-    margin: 2.5em 1em 0.8em;
+    margin: 1.5em 1em 0.5em 1em;
     justify-content: space-between;
 }
 
@@ -150,32 +162,29 @@ label {
     background-color: #326fb2;
 }
 
-
 .progressbar {
-    height: 1em;
-    width: 100%;
-    background-color: #ffffff;
-    border-radius: 5px;
+    height: 0.8em;
     display: flex;
     align-content: center;
     align-items: center;
+    margin: 1em -1em -1em -1em;
+    border-top: 0.5px solid white;
 }
 
 .progressbar--progress {
     height: 100%;
-    background: linear-gradient(90deg, #224f80 1.18%, #76a5d7 100%);
-    border-radius: 5px 0px 0 5px;
+    background: linear-gradient(90deg, #224f80 1.18%, rgba(118, 165, 215, 0.49) 100%);
+    border-radius: 0px 0px 5px 5px;
     textAlign: 'right';
     margin-right: auto;
 }
 
 .progressbar > span {
     float: right;
-    font-size: 1rem;
+    font-size: 0.7rem;
     margin-right: 0.5em;
     align-self: center;
     color: rgba(197,194,194,0.85);
 }
-
 
 

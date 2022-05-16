@@ -1,5 +1,6 @@
 import React, {useEffect} from "react"
 import Question from "./Question"
+import ProgressBar from "./ProgressBar";
 
 export default function QuestionBox(props) {
 
@@ -86,9 +87,6 @@ export default function QuestionBox(props) {
             <Question
                 key={currentQuestion.id}
                 currentQuestion={currentQuestion}
-                totalQuestions={props.data.questions.length}
-                index={props.stats.index+1}
-                progress={props.stats.progress}
                 handleSelection={handleSelection}
             />
             <div className="mcq--buttons">
@@ -107,6 +105,11 @@ export default function QuestionBox(props) {
                         Nächste Frage
                     </button>)}
             </div>
+            <ProgressBar
+                totalQuestions={props.data.questions.length}
+                index={props.stats.index+1}
+                progress={props.stats.progress}
+            />
         </div>
     )
 

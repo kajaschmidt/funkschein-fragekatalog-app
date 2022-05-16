@@ -19,8 +19,10 @@ export default function ProgressBar(props) {
         <div className="progressbar">
             <div className="progressbar--progress" style={progressStyle}>
             </div>
-            <span>Frage {props.index} von {props.totalQuestions}</span>
+
         </div>
     )
 }
+
+//<span>Frage {props.index} von {props.totalQuestions}</span>
 //const ProgressBar = ({bgcolor,progress,height}) => {

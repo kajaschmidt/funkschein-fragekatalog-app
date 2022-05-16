@@ -33,6 +33,12 @@ export default function License(props) {
                     Reset
                 </button>
             )}
+            {(props.displayFalseQuestionsButton) && (
+                <button
+                    onClick={props.handleFalseQuestion}
+                    className="button-false-questions">
+                    Falsch beantwortete Fragen üben
+                </button>)}
         </div>
     )
 }
