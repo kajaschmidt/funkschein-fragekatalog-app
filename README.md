@@ -1,6 +1,6 @@
 # Funkschein Fragekatalog App
 
-This small React app can be used to study for the German radio certificates: 
+This small React app (see [funkschein-app.de](https://funkschein-app.de) can be used to study for the German radio certificates: 
 * Short Range Certificate (SRC)
 * Long Range Certificate (LRC)
 * UKW-Sprechfunkzeugnis für den Binnenschiffartsfunk (UBI)
