@@ -95,7 +95,7 @@ def get_data() -> None:
     with open(JSON_DATA, 'w') as fp:
         json.dump(funkschein_dict, fp, indent=4, ensure_ascii=False)
 
-    print("Saved questions data in", JSON_DATA)
+    print("Saved SRC, LRC, and UBI data in", JSON_DATA)
 
 # Run script
 if __name__ == '__main__':

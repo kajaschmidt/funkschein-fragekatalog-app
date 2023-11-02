@@ -95,14 +95,14 @@ export default function QuestionBox(props) {
                     className="button-left"
                     disabled={props.stats.index === 0}
                 >
-                    Previous question
+                    Vorherige Frage
                 </button>
                 {(props.stats.index + 1 < props.data.questions.length) && (
                     <button
                         onClick={handleNextQuestion}
                         disabled={currentQuestion.disabled === false}
                         className="button-right">
-                        Next question
+                        Nächste Frage
                     </button>)}
             </div>
             <ProgressBar

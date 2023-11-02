@@ -1,17 +1,16 @@
-import React, {useEffect} from 'react';
+import React, {Component, useEffect} from 'react';
 
-import Header from "./components/Header";
+import Header from "./components/Header"
 import License from "./components/License";
 import QuestionBox from "./components/QuestionBox";
-import Statistics from "./components/Statistics";
+import Statistics from "./components/Statistics"
 
-//import data from "./data/data";
-const data = require("./data/data.json");
+import data from "./data/data"
 
 export default function App() {
 
     // Popup when you try to refresh the page
-    useEffect(() => {
+    /*useEffect(() => {
         const unloadCallback = (event) => {
             event.preventDefault();
             event.returnValue = "";
@@ -19,13 +18,15 @@ export default function App() {
         };
         window.addEventListener("beforeunload", unloadCallback);
         return () => window.removeEventListener("beforeunload", unloadCallback);
-    }, []); // TODO: untoggle
+    }, []);*/ // TODO: untoggle
 
     /* ---------------------- S T A T E S ---------------------- */
 
     // State of selected license
     const [checkedLicense, setCheckedLicense] = React.useState({
-        epso: false,
+        src: false,
+        lrc: false,
+        ubi: false,
         disabled: false,
     })
 
@@ -40,7 +41,8 @@ export default function App() {
     /* ---------------------- V A R I A B L E S ---------------------- */
 
     // Define licenses for which there are questions
-    const licenses = ["epso"]
+    const licenses = ["src", "lrc", "ubi"]
+
 
     /* ---------------------- F U N C T I O N S ---------------------- */
 
@@ -227,7 +229,9 @@ export default function App() {
             setCheckedLicense(prevData => {
                 return {
                     ...prevData,
-		    epso: "",
+                    src: "",
+                    lrc: "",
+                    ubi: "",
                     disabled: false,
                 }
             })
@@ -309,3 +313,5 @@ export default function App() {
         </div>
     )
 }
+
+
